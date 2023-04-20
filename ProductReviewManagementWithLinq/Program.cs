@@ -23,7 +23,9 @@
             };
 
             Management management = new Management();
-            management.TopRecords(productReviewList);
+            //management.TopRecords(productReviewList);
+
+            management.SelectedRecords(productReviewList);
         }
     }
 }
