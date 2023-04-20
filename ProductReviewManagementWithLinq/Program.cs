@@ -27,7 +27,9 @@
 
             //management.SelectedRecords(productReviewList);
 
-            management.RetrieveCountOfRecords(productReviewList);
+            //management.RetrieveCountOfRecords(productReviewList);
+            
+            management.RetrieveSelectedColumn(productReviewList);
         }
     }
 }

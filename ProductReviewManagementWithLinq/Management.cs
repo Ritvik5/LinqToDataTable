@@ -42,5 +42,15 @@ namespace ProductReviewManagementWithLinq
             }
         }
 
+        public void RetrieveSelectedColumn(List<ProductReview> listProductReview)
+        {
+            var recordedData = listProductReview.Select(x => new { ProductID = x.ProducID, Review = x.Review });
+
+            foreach (var list in recordedData)
+            {
+                Console.WriteLine(list.ProductID + "______________" + list.Review);
+            }
+        }
+
     }
 }
