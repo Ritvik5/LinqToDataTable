@@ -21,6 +21,9 @@
                 new ProductReview(){ProducID=11,UserID=1,Rating=3,Review="nice",isLike=true}
 
             };
+
+            Management management = new Management();
+            management.TopRecords(productReviewList);
         }
     }
 }
