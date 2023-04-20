@@ -28,8 +28,10 @@
             //management.SelectedRecords(productReviewList);
 
             //management.RetrieveCountOfRecords(productReviewList);
-            
-            management.RetrieveSelectedColumn(productReviewList);
+
+            //management.RetrieveSelectedColumn(productReviewList);
+
+            management.SkipTopFiveRecords(productReviewList);
         }
     }
 }
