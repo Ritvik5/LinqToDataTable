@@ -20,17 +20,17 @@ namespace LinqToDataTable
             productReviewTable.Columns.Add("isLike", typeof(bool));
 
 
-            productReviewTable.Rows.Add("1", "101", "5", "Nice", "True");
-            productReviewTable.Rows.Add("2", "102", "4", "Good", "False");
-            productReviewTable.Rows.Add("3", "103", "3", "Nice", "True");
-            productReviewTable.Rows.Add("4", "104", "1", "Nice", "False");
-            productReviewTable.Rows.Add("5", "105", "2", "Good", "True");
-            productReviewTable.Rows.Add("6", "106", "3", "Nice", "False");
-            productReviewTable.Rows.Add("7", "107", "1", "Nice", "True");
-            productReviewTable.Rows.Add("8", "108", "4", "Good", "True");
-            productReviewTable.Rows.Add("9", "109", "2", "Nice", "False");
-            productReviewTable.Rows.Add("10", "110", "5", "Good", "True");
-            RetrieveAverageRaing();  
+            productReviewTable.Rows.Add(1, 101, 5, "Nice", true);
+            productReviewTable.Rows.Add(2, 102, 4, "Good", false);
+            productReviewTable.Rows.Add(3, 103, 3, "Nice", true);
+            productReviewTable.Rows.Add(4, 104, 1, "Nice", false);
+            productReviewTable.Rows.Add(5, 105, 2, "Good", true);
+            productReviewTable.Rows.Add(6, 106, 3, "Nice", false);
+            productReviewTable.Rows.Add(7, 107, 1, "Nice", true);
+            productReviewTable.Rows.Add(8, 108, 4, "Good", true);
+            productReviewTable.Rows.Add(9, 109, 2, "Nice", false);
+            productReviewTable.Rows.Add(10, 110, 5, "Good", true);
+            RetrieveReviewNice();  
         }
 
         public void DisplayTable()
@@ -81,6 +81,22 @@ namespace LinqToDataTable
             foreach (var pr in productRatings)
             {
                 Console.WriteLine("ProductID: {0}, AvgRating: {1:F2}", pr.ProductID, pr.AvgRating);
+            }
+
+        }
+
+        public void RetrieveReviewNice()
+        {
+            var niceReviews = from row in productReviewTable.AsEnumerable()
+                              where row.Field<string>("Review") == "Nice"
+                              select row;
+
+
+            foreach (var row in niceReviews)
+            {
+                Console.WriteLine("ProductID: {0}, UserID: {1}, Rating: {2}, Review: {3}, isLike: {4}",
+                    row.Field<int>("ProductID"), row.Field<int>("UserID"), row.Field<int>("Rating"),
+                    row.Field<string>("Review"), row.Field<bool>("isLike"));
             }
 
         }
