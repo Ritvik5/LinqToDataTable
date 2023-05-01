@@ -30,7 +30,7 @@ namespace LinqToDataTable
             productReviewTable.Rows.Add("8", "108", "4", "Good", "True");
             productReviewTable.Rows.Add("9", "109", "2", "Nice", "False");
             productReviewTable.Rows.Add("10", "110", "5", "Good", "True");
-            RetrieveIsLikeValueTrue();  
+            RetrieveAverageRaing();  
         }
 
         public void DisplayTable()
@@ -67,6 +67,22 @@ namespace LinqToDataTable
                                   row["ProductID"], row["UserID"], row["Rating"],
                                   row["Review"], row["isLike"]);
             }
+        }
+
+        public void RetrieveAverageRaing() 
+        {
+            var productRatings = from DataRow row in productReviewTable.Rows
+                                 group row by row.Field<int>("ProductID") into g
+                                 select new
+                                 {
+                                     ProductID = g.Key,
+                                     AvgRating = g.Average(r => r.Field<int>("Rating"))
+                                 };
+            foreach (var pr in productRatings)
+            {
+                Console.WriteLine("ProductID: {0}, AvgRating: {1:F2}", pr.ProductID, pr.AvgRating);
+            }
+
         }
     }
 }
