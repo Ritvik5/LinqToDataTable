@@ -62,6 +62,5 @@ namespace ProductReviewManagementWithLinq
                     " " + "Rating:- " + list.Rating + " " + "Review:- " + list.Review + " " + "isLike:- " + list.isLike);
             }
         }
-
     }
 }
