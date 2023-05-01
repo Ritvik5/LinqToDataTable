@@ -30,7 +30,13 @@ namespace LinqToDataTable
             productReviewTable.Rows.Add(8, 108, 4, "Good", true);
             productReviewTable.Rows.Add(9, 109, 2, "Nice", false);
             productReviewTable.Rows.Add(10, 110, 5, "Good", true);
-            RetrieveReviewNice();  
+            productReviewTable.Rows.Add(11, 10, 5, "Nice", true);
+            productReviewTable.Rows.Add(12, 10, 3, "Good", true);
+            productReviewTable.Rows.Add(13, 10, 4, "Good", true);
+            productReviewTable.Rows.Add(14, 10, 1, "Nice", true);
+            productReviewTable.Rows.Add(15, 10, 3, "Good", false);
+            productReviewTable.Rows.Add(16, 10, 4, "Good", true);
+            RetrieveUserIdByRating();  
         }
 
         public void DisplayTable()
@@ -57,7 +63,7 @@ namespace LinqToDataTable
 
         public void RetrieveIsLikeValueTrue()
         {
-            var likedProducts = from DataRow row in productReviewTable.Rows
+            var likedProducts = from DataRow row in productReviewTable.AsEnumerable()
                                 where row.Field<bool>("isLike") == true
                                 select row;
 
@@ -71,7 +77,7 @@ namespace LinqToDataTable
 
         public void RetrieveAverageRaing() 
         {
-            var productRatings = from DataRow row in productReviewTable.Rows
+            var productRatings = from DataRow row in productReviewTable.AsEnumerable()
                                  group row by row.Field<int>("ProductID") into g
                                  select new
                                  {
@@ -99,6 +105,21 @@ namespace LinqToDataTable
                     row.Field<string>("Review"), row.Field<bool>("isLike"));
             }
 
+        }
+
+        public void RetrieveUserIdByRating()
+        {
+            var usedIdByReview = from row in productReviewTable.AsEnumerable()
+                                 where row.Field<int>("UserID") == 10
+                                 orderby (int)row["Rating"]
+                                 select row;
+
+            foreach(var row in usedIdByReview)
+            {
+                Console.WriteLine("ProductID: {0}, UserID: {1}, Rating: {2}, Review: {3}, isLike: {4}",
+                    row.Field<int>("ProductID"), row.Field<int>("UserID"), row.Field<int>("Rating"),
+                    row.Field<string>("Review"), row.Field<bool>("isLike"));
+            }
         }
     }
 }
