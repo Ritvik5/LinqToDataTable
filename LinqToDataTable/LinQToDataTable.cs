@@ -13,11 +13,11 @@ namespace LinqToDataTable
 
         public void AddToDataTableDemo()
         {
-            productReviewTable.Columns.Add("ProductID");
-            productReviewTable.Columns.Add("UserID");
-            productReviewTable.Columns.Add("Rating");
-            productReviewTable.Columns.Add("Review");
-            productReviewTable.Columns.Add("isLike");
+            productReviewTable.Columns.Add("ProductID",typeof(int));
+            productReviewTable.Columns.Add("UserID",typeof(int));
+            productReviewTable.Columns.Add("Rating", typeof(int));
+            productReviewTable.Columns.Add("Review", typeof(string));
+            productReviewTable.Columns.Add("isLike", typeof(bool));
 
 
             productReviewTable.Rows.Add("1", "101", "5", "Nice", "True");
@@ -30,7 +30,7 @@ namespace LinqToDataTable
             productReviewTable.Rows.Add("8", "108", "4", "Good", "True");
             productReviewTable.Rows.Add("9", "109", "2", "Nice", "False");
             productReviewTable.Rows.Add("10", "110", "5", "Good", "True");
-            DisplayTable();
+            RetrieveIsLikeValueTrue();  
         }
 
         public void DisplayTable()
@@ -53,6 +53,20 @@ namespace LinqToDataTable
             }
 
             Console.ReadLine();
+        }
+
+        public void RetrieveIsLikeValueTrue()
+        {
+            var likedProducts = from DataRow row in productReviewTable.Rows
+                                where row.Field<bool>("isLike") == true
+                                select row;
+
+            foreach (DataRow row in likedProducts)
+            {
+                Console.WriteLine("{0}\t{1}\t{2}\t{3}\t{4}",
+                                  row["ProductID"], row["UserID"], row["Rating"],
+                                  row["Review"], row["isLike"]);
+            }
         }
     }
 }
